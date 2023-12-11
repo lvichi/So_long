@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 21:58:14 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/11 17:03:40 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:22:41 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,59 +65,52 @@ void	draw_map(t_game *game)
 
 	map = (char **)game->map;
 	pos[0] = -1;
-	while (++pos[0] < 10)
+	while (++pos[0] < MAX_Y)
 	{
 		pos[1] = -1;
-		while (++pos[1] < 15)
+		while (++pos[1] < MAX_X)
 		{
 			draw_image(game, map[pos[0]][pos[1]], pos);
 		}
 	}
 }
 
-static void	fill_map(char *buffer, char **map)
+static char	**fill_map(char *buffer)
 {
 	int		i;
 	int		j;
 	int		n;
+	char	**map;
 
 	i = 0;
 	n = 0;
-	while (i < 10)
+	map = (char **)ft_calloc(sizeof(char *), MAX_Y + 1);
+	if (!map)
+		return (NULL);
+	while (i < 20)
 	{
 		j = 0;
-		map[i] = (char *)ft_calloc(sizeof(char), 17);
-		while (buffer[n] != '\n' && buffer[n] != 0 && j < 15)
+		map[i] = (char *)ft_calloc(sizeof(char), MAX_X + 2);
+		while (buffer[n] != '\n' && buffer[n] != 0 && j < MAX_X)
 			map[i][j++] = buffer[n++];
 		map[i][j] = buffer[n++];
 		i++;
 	}
 	map[i] = 0;
+	return (map);
 }
 
 char	**get_map(char *file)
 {
-	ssize_t	fd;
 	char	**map;
-	size_t	buffer_size;
 	char	*buffer;
-	ssize_t	read_return;
 
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	buffer = read_file(file);
+	if (!buffer)
 		return (NULL);
-	buffer_size = 160;
-	buffer = (char *)ft_calloc(sizeof(char), 160);
-	read_return = read(fd, buffer, buffer_size);
-	if (read_return == -1)
-		return (NULL);
-	map = (char **)ft_calloc(sizeof(char *), 11);
-	if (!map)
-	{
-		free(buffer);
-		return (NULL);
-	}
-	fill_map(buffer, map);
+	map = fill_map(buffer);
 	free(buffer);
+	if (!map_check(map))
+		return (NULL);
 	return (map);
 }

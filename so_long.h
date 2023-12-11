@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:34:15 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/11 16:58:02 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:22:27 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
 
+# define MAX_Y 20
+# define MAX_X 38
+# define MAX_FILE_SIZE 800
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
@@ -39,6 +42,8 @@ typedef struct s_game
 }	t_game;
 
 char	**get_map(char *file);
+char	*read_file(char *file);
+int		map_check(char **map);
 void	map_size(char **map, int *map_x, int *map_y);
 void	print_map(char **map);
 void	*get_images(void *conn_id);

@@ -6,7 +6,7 @@
 #    By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/05 21:17:31 by lvichi            #+#    #+#              #
-#    Updated: 2023/12/10 22:38:17 by lvichi           ###   ########.fr        #
+#    Updated: 2023/12/11 20:38:41 by lvichi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = so_long
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -fr
-FILES = so_long.c map.c game.c utils.c
+FILES = so_long.c map.c game.c utils.c map_check.c
 OBJS = *.o
 LIBFT = -L libft -lft
 MINILIBX = -L minilibx-linux -lmlx -lXext -lX11

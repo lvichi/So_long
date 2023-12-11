@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/11 16:57:40 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:04:18 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ static void	game(char **map, int map_x, int map_y)
 {
 	t_game	game;
 
-	ft_putnbr_fd(map_x, 1);
-	write(1, "\n", 1);
-	ft_putnbr_fd(map_y, 1);
-	write(1, "\n", 1);
 	game.conn_id = mlx_init();
 	if (!game.conn_id)
 		return ;
