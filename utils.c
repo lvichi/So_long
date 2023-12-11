@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:05:20 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/10 23:19:10 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/11 16:59:15 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,19 @@ void	print_map(char **map)
 		i++;
 	}
 	write(1, "\n", 1);
+}
+
+void	map_size(char **map, int *map_x, int *map_y)
+{
+	int	y;
+	int x;
+
+	y = 0;
+	x = 0;
+	while(map[y][x] != '\n')
+		x++;
+	while (map[y])
+		y++;
+	*map_x = x * 50;
+	*map_y = y * 50;
 }

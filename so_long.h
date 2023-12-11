@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:34:15 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/10 23:26:58 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/11 16:58:02 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_game
 }	t_game;
 
 char	**get_map(char *file);
+void	map_size(char **map, int *map_x, int *map_y);
 void	print_map(char **map);
 void	*get_images(void *conn_id);
 void	player_pos(t_game *game);

@@ -6,20 +6,30 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/10 23:19:36 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/11 16:57:40 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	game(char **map)
+static void	game(char **map, int map_x, int map_y)
 {
 	t_game	game;
 
+	ft_putnbr_fd(map_x, 1);
+	write(1, "\n", 1);
+	ft_putnbr_fd(map_y, 1);
+	write(1, "\n", 1);
 	game.conn_id = mlx_init();
-	game.window_id = mlx_new_window(game.conn_id, 1850, 1000, "./so_long");
-	if (!game.conn_id || !game.window_id)
+	if (!game.conn_id)
 		return ;
+	game.window_id = mlx_new_window(game.conn_id, map_x, map_y, "./so_long");
+	if (!game.window_id)
+	{
+		mlx_destroy_display(game.conn_id);
+		free(game.conn_id);
+		return ;
+	}
 	game.images = get_images(game.conn_id);
 	if (!game.images)
 		return ;
@@ -36,6 +46,8 @@ static void	game(char **map)
 int	main(int argc, char **argv)
 {
 	char	**map;
+	int		map_x;
+	int		map_y;
 
 	if (argc != 2)
 	{
@@ -49,5 +61,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	print_map(map);
-	game(map);
+	map_size(map, &map_x, &map_y);
+	game(map, map_x, map_y);
+	write(1, "Error loading game\n", 19);
 }
