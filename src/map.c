@@ -6,111 +6,86 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 21:58:14 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/13 23:29:12 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/14 17:59:57 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	draw_image(t_game *game, char img, int p[2])
+static void	draw_image(t_game *game, int x, int y)
 {
-	void	*c_id;
-	void	*w_id;
-	void	**imgs;
-
-	c_id = game->c_id;
-	w_id = game->w_id;
-	imgs = (void **)game->img;
-	if (img == '1')
-		mlx_put_image_to_window(c_id, w_id, imgs[0], (p[1] * 50), (p[0] * 50));
-	else if (img == '0')
-		mlx_put_image_to_window(c_id, w_id, imgs[1], (p[1] * 50), (p[0] * 50));
-	else if (img == 'P')
-		mlx_put_image_to_window(c_id, w_id, imgs[2], (p[1] * 50), (p[0] * 50));
-	else if (img == 'C')
-		mlx_put_image_to_window(c_id, w_id, imgs[3], (p[1] * 50), (p[0] * 50));
-	else if (img == 'E')
-		mlx_put_image_to_window(c_id, w_id, imgs[4], (p[1] * 50), (p[0] * 50));
-}
-
-void	*get_images(void *c_id)
-{
-	void	**images;
-	int		i;
-	int		w;
-
-	w = 50;
-	images = (void **)malloc(sizeof(void *) * 5);
-	images[0] = mlx_xpm_file_to_image(c_id, "images/wall.xpm", &w, &w);
-	images[1] = mlx_xpm_file_to_image(c_id, "images/background.xpm", &w, &w);
-	images[2] = mlx_xpm_file_to_image(c_id, "images/player.xpm", &w, &w);
-	images[3] = mlx_xpm_file_to_image(c_id, "images/collect.xpm", &w, &w);
-	images[4] = mlx_xpm_file_to_image(c_id, "images/exit.xpm", &w, &w);
-	i = -1;
-	while (++i < 5)
-	{
-		if (!images[i])
-		{
-			free(images);
-			return (NULL);
-		}
-	}
-	return (images);
+	if (game->map[y][x] == '1')
+		mlx_put_image_to_window(game->c_id, game->w_id, game->imgs[0],
+			x * IMG_WIDTH, y * IMG_HEIGHT);
+	if (game->map[y][x] == '0')
+		mlx_put_image_to_window(game->c_id, game->w_id, game->imgs[1],
+			x * IMG_WIDTH, y * IMG_HEIGHT);
+	else if (game->map[y][x] == 'P')
+		mlx_put_image_to_window(game->c_id, game->w_id, game->imgs[2],
+			x * IMG_WIDTH, y * IMG_HEIGHT);
+	else if (game->map[y][x] == 'C')
+		mlx_put_image_to_window(game->c_id, game->w_id, game->imgs[3],
+			x * IMG_WIDTH, y * IMG_HEIGHT);
+	else if (game->map[y][x] == 'E')
+		mlx_put_image_to_window(game->c_id, game->w_id, game->imgs[4],
+			x * IMG_WIDTH, y * IMG_HEIGHT);
 }
 
 void	draw_map(t_game *game)
 {
-	int		pos[2];
+	int		x;
+	int		y;
 	char	**map;
 
 	map = (char **)game->map;
-	pos[0] = -1;
-	while (++pos[0] < MAX_Y)
+	y = -1;
+	while (++y < array_len(map))
 	{
-		pos[1] = -1;
-		while (++pos[1] < MAX_X)
-		{
-			draw_image(game, map[pos[0]][pos[1]], pos);
-		}
+		x = -1;
+		while (++x < array_len(map[y]))
+			draw_image(game, x, y);
 	}
 }
 
-static char	**fill_map(char *buffer)
+static char	**fill_map(char *buffer, char **map)
 {
 	int		i;
 	int		j;
 	int		n;
-	char	**map;
 
-	i = 0;
 	n = 0;
-	map = (char **)ft_calloc(sizeof(char *), MAX_Y + 1);
-	if (!map)
-		return (NULL);
-	while (i < 20)
+	i = -1;
+	while (++i < MAX_Y && buffer[n] != 0)
 	{
-		j = 0;
-		map[i] = (char *)ft_calloc(sizeof(char), MAX_X + 2);
-		while (buffer[n] != '\n' && buffer[n] != 0 && j < MAX_X)
-			map[i][j++] = buffer[n++];
-		map[i][j] = buffer[n++];
-		i++;
+		map[i] = (char *)ft_calloc(sizeof(char), MAX_X + 1);
+		if (!map[i])
+		{
+			free_map(map);
+			return (NULL);
+		}
+		j = -1;
+		while (buffer[n] != '\n' && buffer[n] != 0 && ++j < MAX_X)
+			map[i][j] = buffer[n++];
+		if (buffer[n] == '\n')
+			n++;
 	}
-	map[i] = 0;
+	free(buffer);
 	return (map);
 }
 
-char	**get_map(char *file)
+int	get_map(t_game *game, char *file)
 {
-	char	**map;
 	char	*buffer;
+	int		error;
+	char	**map;
 
+	map = (char **)ft_calloc(sizeof(char *), MAX_Y + 1);
+	if (!map)
+		return (-1);
 	buffer = read_file(file);
 	if (!buffer)
-		return (NULL);
-	map = fill_map(buffer);
-	free(buffer);
-	if (!map_check(map))
-		return (NULL);
-	return (map);
+		return (-1);
+	game->map = fill_map(buffer, map);
+	error = map_check(game->map);
+	return (error);
 }

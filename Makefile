@@ -6,7 +6,7 @@
 #    By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/05 21:17:31 by lvichi            #+#    #+#              #
-#    Updated: 2023/12/13 22:33:25 by lvichi           ###   ########.fr        #
+#    Updated: 2023/12/14 00:39:28 by lvichi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,13 @@ $(OBJS): $(FILES)
 
 clean:
 	@$(RM) $(OBJS)
+	@rmdir obj
 	@make clean -C minilibx-linux -s
 	@make clean -C libft -s
 
 fclean:
 	@$(RM) $(OBJS) $(NAME)
+	@rmdir obj
 	@make clean -C minilibx-linux -s
 	@$(RM) minilibx-linux/Makefile.gen
 	@make fclean -C libft -s

@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:13:25 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/13 23:30:25 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:24:09 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	end_game(t_game *game)
 	mlx_destroy_window(game->c_id, game->w_id);
 	i = -1;
 	while (++i < 5)
-		mlx_destroy_image(game->c_id, ((void **)(game->img))[i]);
-	free(game->img);
+		mlx_destroy_image(game->c_id, game->imgs[i]);
+	free(game->imgs);
 	i = -1;
 	while (((char **)game->map)[++i])
 		free(((char **)game->map)[i]);

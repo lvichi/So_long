@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:05:20 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/13 23:44:48 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:54:29 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	print_map(char **map)
 	i = -1;
 	while (map[++i])
 	{
-		j = 0;
-		while (map[i] && map[i][j])
-			write(1, &map[i][j++], 1);
+		j = -1;
+		while (map[i][++j])
+			write(1, &map[i][j], 1);
+		write(1, "\n", 1);
 	}
 	write(1, "\n", 1);
 }
@@ -53,6 +54,17 @@ void	free_map(char **map)
 	while (map[++i])
 		free(map[i]);
 	free(map);
+}
+
+void	free_images(t_game *game)
+{
+	int	i;
+
+	i = -1;
+	while (++i < MAX_IMG)
+		if (game->imgs[i])
+			mlx_destroy_image(game->c_id, game->imgs[i]);
+	free(game->imgs);
 }
 
 int	array_len(void *array)

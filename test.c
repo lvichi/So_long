@@ -69,7 +69,7 @@ int main(void)
     //printf("%d\n", array_len(map1));    // Counting strings in array
     //printf("%d\n", array_len(map2[0]));     // Counting characters in string
     //printf("%d\n", array_len(map1[0]));     // Counting characters in string
-
+	printf("sizeof void *: %ld sizeof size_t: %ld sizeof char *: %ld \n", sizeof(void *), sizeof(size_t), sizeof(char *));
     i = -1;
     while (++i < 6)
     {
