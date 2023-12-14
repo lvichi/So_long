@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:13:25 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/10 23:52:09 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/13 23:30:25 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	end_game(t_game *game)
 {
 	int	i;
 
-	mlx_destroy_window(game->conn_id, game->window_id);
+	mlx_destroy_window(game->c_id, game->w_id);
 	i = -1;
 	while (++i < 5)
-		mlx_destroy_image(game->conn_id, ((void **)(game->images))[i]);
-	free(game->images);
+		mlx_destroy_image(game->c_id, ((void **)(game->img))[i]);
+	free(game->img);
 	i = -1;
 	while (((char **)game->map)[++i])
 		free(((char **)game->map)[i]);
 	free (game->map);
-	mlx_destroy_display(game->conn_id);
-	free(game->conn_id);
+	mlx_destroy_display(game->c_id);
+	free(game->c_id);
 	exit(0);
 	return (0);
 }
@@ -77,7 +77,7 @@ void	player_pos(t_game *game)
 	while (game->map[++i])
 	{
 		j = -1;
-		while (game->map[++j])
+		while (game->map[i][++j])
 		{
 			if (game->map[i][j] == 'P')
 			{

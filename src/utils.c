@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:05:20 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/11 20:36:52 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/13 23:44:48 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,6 @@ void	print_map(char **map)
 	write(1, "\n", 1);
 }
 
-void	map_size(char **map, int *map_x, int *map_y)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	x = 0;
-	while (map[y][x] != '\n')
-		x++;
-	while (map[y])
-		y++;
-	*map_x = x * 50;
-	*map_y = y * 50;
-}
-
 char	*read_file(char *file)
 {
 	ssize_t	fd;
@@ -58,4 +43,40 @@ char	*read_file(char *file)
 	if (read_return == -1)
 		return (NULL);
 	return (buffer);
+}
+
+void	free_map(char **map)
+{
+	int	i;
+
+	i = -1;
+	while (map[++i])
+		free(map[i]);
+	free(map);
+}
+
+int	array_len(void *array)
+{
+	int	array_check;
+	int	i;
+
+	i = 0;
+	array_check = *((char *)array) >> 8;
+	if (array_check)
+	{
+		while (*((char **)array))
+		{
+			array = (char **)array + 1;
+			i++;
+		}
+	}
+	else
+	{
+		while (*((char *)array))
+		{
+			array = (char *)array + 1;
+			i++;
+		}
+	}
+	return (i);
 }

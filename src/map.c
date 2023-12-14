@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 21:58:14 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/11 21:22:41 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/13 23:29:12 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static void	draw_image(t_game *game, char img, int p[2])
 	void	*w_id;
 	void	**imgs;
 
-	c_id = game->conn_id;
-	w_id = game->window_id;
-	imgs = (void **)game->images;
+	c_id = game->c_id;
+	w_id = game->w_id;
+	imgs = (void **)game->img;
 	if (img == '1')
 		mlx_put_image_to_window(c_id, w_id, imgs[0], (p[1] * 50), (p[0] * 50));
 	else if (img == '0')
@@ -33,7 +33,7 @@ static void	draw_image(t_game *game, char img, int p[2])
 		mlx_put_image_to_window(c_id, w_id, imgs[4], (p[1] * 50), (p[0] * 50));
 }
 
-void	*get_images(void *conn_id)
+void	*get_images(void *c_id)
 {
 	void	**images;
 	int		i;
@@ -41,11 +41,11 @@ void	*get_images(void *conn_id)
 
 	w = 50;
 	images = (void **)malloc(sizeof(void *) * 5);
-	images[0] = mlx_xpm_file_to_image(conn_id, "images/wall.xpm", &w, &w);
-	images[1] = mlx_xpm_file_to_image(conn_id, "images/background.xpm", &w, &w);
-	images[2] = mlx_xpm_file_to_image(conn_id, "images/player.xpm", &w, &w);
-	images[3] = mlx_xpm_file_to_image(conn_id, "images/collect.xpm", &w, &w);
-	images[4] = mlx_xpm_file_to_image(conn_id, "images/exit.xpm", &w, &w);
+	images[0] = mlx_xpm_file_to_image(c_id, "images/wall.xpm", &w, &w);
+	images[1] = mlx_xpm_file_to_image(c_id, "images/background.xpm", &w, &w);
+	images[2] = mlx_xpm_file_to_image(c_id, "images/player.xpm", &w, &w);
+	images[3] = mlx_xpm_file_to_image(c_id, "images/collect.xpm", &w, &w);
+	images[4] = mlx_xpm_file_to_image(c_id, "images/exit.xpm", &w, &w);
 	i = -1;
 	while (++i < 5)
 	{
