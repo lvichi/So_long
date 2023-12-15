@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:05:20 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 01:36:28 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 21:50:20 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,20 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	while (size)
 		((char *)ret)[--size] = 0;
 	return (ret);
+}
+
+int	check_extension(char *file, char *ext)
+{
+	char	ext_check[5];
+	int		i;
+
+	while (*file)
+		file++;
+	i = 5;
+	while (--i >= 0)
+		ext_check[i] = *file--;
+	while (ext_check[++i])
+		if (ext_check[i] != ext[i])
+			return (0);
+	return (1);
 }

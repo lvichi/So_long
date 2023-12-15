@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 01:21:15 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:16:57 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static int	get_map(t_game *game, char *file)
 	int		error;
 	ssize_t	read_return;
 
+	if (!check_extension(file, FILE_EXTENSION))
+		return (8);
 	fd = open(file, O_RDONLY);
 	buffer = (char *)ft_calloc(sizeof(char), MAX_FILE_SIZE);
 	map = (char **)ft_calloc(sizeof(char *), MAX_Y + 1);
@@ -114,6 +116,7 @@ int	main(int argc, char **argv)
 {
 	int	error;
 
+	error = 0;
 	if (argc != 2)
 	{
 		write(1, "Invalid arguments\n", 18);
@@ -122,16 +125,18 @@ int	main(int argc, char **argv)
 	error = init_game(argv[1]);
 	if (error == 1)
 		write(1, "Error reading file\n", 19);
-	if (error == 2)
+	else if (error == 2)
 		write(1, "Invalid map: Not a retangle\n", 28);
-	if (error == 3)
+	else if (error == 3)
 		write(1, "Invalid map: Invalid content\n", 29);
-	if (error == 4)
+	else if (error == 4)
 		write(1, "Invalid map: Missing outside wall\n", 34);
-	if (error == 5)
+	else if (error == 5)
 		write(1, "Invalid map: Invalid path\n", 26);
-	if (error == 6)
+	else if (error == 6)
 		write(1, "Error loading game\n", 19);
-	if (error == 7)
+	else if (error == 7)
 		write(1, "Invalid map: Map too big\n", 25);
+	else if (error == 8)
+		write(1, "Incorrect file\n", 15);
 }

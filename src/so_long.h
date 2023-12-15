@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:34:15 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 01:37:20 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 21:48:09 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define IMG_WIDTH 50
 # define IMG_HEIGHT 50
 # define WINDOW_NAME "./so_long"
+# define FILE_EXTENSION ".ber"
 
 typedef struct s_game
 {
@@ -54,6 +55,7 @@ typedef struct s_game
 char	**fill_map(char *buffer, char **map);
 int		map_check(char **map);
 void	*ft_calloc(size_t nmemb, size_t size);
+int		check_extension(char *file, char *ext);
 void	ft_putnbr(int n);
 int		check_path(char **map);
 int		array_len(void *array);

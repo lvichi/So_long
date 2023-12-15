@@ -6,7 +6,7 @@
 #    By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/05 21:17:31 by lvichi            #+#    #+#              #
-#    Updated: 2023/12/14 00:39:28 by lvichi           ###   ########.fr        #
+#    Updated: 2023/12/15 23:24:57 by lvichi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,6 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MINILIBX) -o $(NAME)
 
 $(OBJS): $(FILES)
-	@clear
-#	@python3 ~/.local/bin/norminette $(FILES)
-	@make -C libft -s
 	@make -C minilibx-linux -s
 	@mkdir -p obj
 	@$(CC) $(CFLAGS) -l lib -c $(FILES)
@@ -43,14 +40,12 @@ clean:
 	@$(RM) $(OBJS)
 	@rmdir obj
 	@make clean -C minilibx-linux -s
-	@make clean -C libft -s
 
 fclean:
 	@$(RM) $(OBJS) $(NAME)
 	@rmdir obj
 	@make clean -C minilibx-linux -s
 	@$(RM) minilibx-linux/Makefile.gen
-	@make fclean -C libft -s
 
 re: fclean all
 
