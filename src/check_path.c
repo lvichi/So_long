@@ -6,11 +6,52 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:17:22 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/13 22:17:53 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 00:39:02 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static int	check_fill(char **map)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+			if (map[y][x] == 'P' || map[y][x] == 'C' || map[y][x] == 'E')
+				return (0);
+	}
+	return (1);
+}
+
+static void	flood_fill(char **map, int y, int x)
+{
+	map[y][x] = '-';
+	if (map[y - 1][x] != '1' && map[y - 1][x] != '-')
+		flood_fill(map, y - 1, x);
+	if (map[y + 1][x] != '1' && map[y + 1][x] != '-')
+		flood_fill(map, y + 1, x);
+	if (map[y][x - 1] != '1' && map[y][x - 1] != '-')
+		flood_fill(map, y, x - 1);
+	if (map[y][x + 1] != '1' && map[y][x + 1] != '-')
+		flood_fill(map, y, x + 1);
+}
+
+static void	start_pos(char **map, int *y, int *x)
+{
+	*y = -1;
+	while (map[++(*y)])
+	{
+		*x = -1;
+		while (map[*y][++(*x)])
+			if (map[*y][*x] == 'P')
+				return ;
+	}
+}
 
 static char	**duplicate_map(char **map)
 {
@@ -42,8 +83,19 @@ static char	**duplicate_map(char **map)
 int	check_path(char **map)
 {
 	char	**test_map;
+	int		y;
+	int		x;
 
 	test_map = duplicate_map(map);
+	y = 0;
+	x = 0;
+	start_pos(test_map, &y, &x);
+	flood_fill(test_map, y, x);
+	if (!check_fill(test_map))
+	{
+		free_map(test_map);
+		return (0);
+	}
 	free_map(test_map);
 	return (1);
 }

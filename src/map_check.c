@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 20:38:22 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/14 02:10:03 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 00:52:44 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,13 @@
 static int	check_retangle(char **map)
 {
 	int	y;
-	int	x;
-	int	max_y;
-	int	max_x;
 
-	max_y = 0;
-	while (map[max_y])
-		max_y++;
-	max_x = 0;
-	while (map[0][max_x] != '\n' && map[0][max_x] != 0)
-		max_x++;
+	if (array_len(map) == array_len(map[0]))
+		return (0);
 	y = -1;
 	while (map[++y])
-	{
-		x = 0;
-		while (map[y][x] != '\n' && map[y][x] != 0)
-			x++;
-		if (max_y >= x || x != max_x)
+		if (array_len(map[y]) != array_len(map[0]))
 			return (0);
-	}
 	return (1);
 }
 
@@ -57,7 +45,7 @@ static int	check_content(char **map)
 				content_p_c_e[1] = 1;
 			else if (map[y][x] == 'E')
 				content_p_c_e[2] += 1;
-			else if (map[y][x] != '0' && map[y][x] != '1' && map[y][x] != '\n')
+			else if (map[y][x] != '0' && map[y][x] != '1')
 				return (0);
 		}
 	}
@@ -70,22 +58,17 @@ static int	check_wall(char **map)
 {
 	int	y;
 	int	x;
-	int	max_y;
-	int	max_x;
 
-	max_y = 0;
-	while (map[max_y])
-		max_y++;
-	max_x = 0;
-	while (map[0][max_x] != '\n' && map[0][max_x] != 0)
-		max_x++;
 	y = -1;
 	while (map[++y])
 	{
 		x = -1;
-		while (map[y][++x] != '\n' && map[y][x] != 0)
+		while (map[y][++x])
 		{
-			if (y == 0 || x == 0 || y == (max_y -1) || x == (max_x - 1))
+			if (y == 0 || y == array_len(map) - 1)
+				if (map[y][x] != '1')
+					return (0);
+			if (x == 0 || x == array_len(map[y]) - 1)
 				if (map[y][x] != '1')
 					return (0);
 		}

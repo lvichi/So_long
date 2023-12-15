@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:34:15 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/14 17:59:54 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 00:27:17 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define MAX_Y 20
 # define MAX_X 38
-# define MAX_FILE_SIZE 800
+# define MAX_FILE_SIZE 780
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
@@ -50,7 +50,6 @@ typedef struct s_game
 }	t_game;
 
 int		get_map(t_game *game, char *file);
-char	*read_file(char *file);
 int		map_check(char **map);
 int		check_path(char **map);
 int		array_len(void *array);

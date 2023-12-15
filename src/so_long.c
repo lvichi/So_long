@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/14 18:01:32 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 00:39:24 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,6 @@ int	main(int argc, char **argv)
 		write(1, "Invalid map: Invalid path\n", 26);
 	if (error == 6)
 		write(1, "Error loading game\n", 19);
+	if (error == 7)
+		write(1, "Invalid map: Map too big\n", 25);
 }

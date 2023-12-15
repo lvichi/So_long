@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:05:20 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/14 16:54:29 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 00:19:10 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,6 @@ void	print_map(char **map)
 		write(1, "\n", 1);
 	}
 	write(1, "\n", 1);
-}
-
-char	*read_file(char *file)
-{
-	ssize_t	fd;
-	ssize_t	read_return;
-	char	*buffer;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	buffer = (char *)ft_calloc(sizeof(char), MAX_FILE_SIZE);
-	if (!buffer)
-		return (NULL);
-	read_return = read(fd, buffer, MAX_FILE_SIZE);
-	if (read_return == -1)
-		return (NULL);
-	return (buffer);
 }
 
 void	free_map(char **map)
