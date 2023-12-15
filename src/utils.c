@@ -6,36 +6,30 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:05:20 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 00:19:10 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 01:36:28 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	print_map(char **map)
+void	ft_putnbr(int n)
 {
-	int	i;
-	int	j;
+	long	nbr;
+	char	c;
 
-	i = -1;
-	while (map[++i])
+	nbr = n;
+	if (nbr < 0)
 	{
-		j = -1;
-		while (map[i][++j])
-			write(1, &map[i][j], 1);
-		write(1, "\n", 1);
+		write(1, "-", 1);
+		nbr = -nbr;
 	}
-	write(1, "\n", 1);
-}
-
-void	free_map(char **map)
-{
-	int	i;
-
-	i = -1;
-	while (map[++i])
-		free(map[i]);
-	free(map);
+	while (nbr > 9)
+	{
+		ft_putnbr(nbr / 10);
+		nbr = nbr % 10;
+	}
+	c = nbr + '0';
+	write(1, &c, 1);
 }
 
 void	free_images(t_game *game)
@@ -73,4 +67,17 @@ int	array_len(void *array)
 		}
 	}
 	return (i);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ret;
+
+	size = nmemb * size;
+	ret = malloc(size);
+	if (!ret)
+		return (NULL);
+	while (size)
+		((char *)ret)[--size] = 0;
+	return (ret);
 }

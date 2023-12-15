@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:13:25 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/14 16:24:09 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 01:36:11 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,20 @@ int	end_game(t_game *game)
 
 static void	player_move(t_game *game, int new_y, int new_x)
 {
-	char	**map;
-
-	map = (char **)game->map;
-	if (map[new_y][new_x] == '0' || map[new_y][new_x] == 'C')
+	if (game->map[new_y][new_x] == '0' || game->map[new_y][new_x] == 'C')
 	{
-		if (map[new_y][new_x] == 'C')
+		if (game->map[new_y][new_x] == 'C')
 			game->collect -= 1;
-		map[new_y][new_x] = 'P';
-		map[(game->p_yx[0])][game->p_yx[1]] = '0';
+		game->map[new_y][new_x] = 'P';
+		game->map[(game->p_yx[0])][game->p_yx[1]] = '0';
 		game->p_yx[0] = new_y;
 		game->p_yx[1] = new_x;
 		game->moves += 1;
-		ft_putnbr_fd(game->moves, 1);
+		ft_putnbr(game->moves);
 		write(1, "\n", 1);
 		draw_map(game);
 	}
-	else if (map[new_y][new_x] == 'E' && game->collect == 0)
+	else if (game->map[new_y][new_x] == 'E' && game->collect == 0)
 		end_game(game);
 }
 

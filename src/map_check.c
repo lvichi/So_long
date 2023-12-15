@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 20:38:22 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 00:52:44 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 01:13:31 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	map_check(char **map)
 	check = 0;
 	if (!map)
 		check = 1;
-	if (!check_retangle(map))
+	else if (!check_retangle(map))
 		check = 2;
 	else if (!check_content(map))
 		check = 3;

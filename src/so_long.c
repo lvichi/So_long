@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 00:39:24 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 01:21:15 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,48 @@ static int	mlx(t_game *game)
 	if (!game->c_id)
 	{
 		free_map(game->map);
-		return (-1);
+		return (0);
 	}
 	if (!get_images(game))
 	{
 		mlx_destroy_display(game->c_id);
 		free(game->c_id);
 		free_map(game->map);
-		return (-1);
+		return (0);
 	}
-	game->w_id = mlx_new_window(game->c_id, array_len(game->map[0]) * 50,
-			array_len(game->map) * 50, "./so_long");
+	game->w_id = mlx_new_window(game->c_id, array_len(game->map[0]) * IMG_WIDTH,
+			array_len(game->map) * IMG_HEIGHT, WINDOW_NAME);
 	if (!game->w_id)
 	{
 		mlx_destroy_display(game->c_id);
 		free(game->c_id);
 		free_map(game->map);
-		return (-1);
+		return (0);
 	}
-	return (0);
+	return (1);
+}
+
+static int	get_map(t_game *game, char *file)
+{
+	ssize_t	fd;
+	char	*buffer;
+	char	**map;
+	int		error;
+	ssize_t	read_return;
+
+	fd = open(file, O_RDONLY);
+	buffer = (char *)ft_calloc(sizeof(char), MAX_FILE_SIZE);
+	map = (char **)ft_calloc(sizeof(char *), MAX_Y + 1);
+	if (fd == -1 || !buffer || !map)
+		return (1);
+	read_return = read(fd, buffer, MAX_FILE_SIZE);
+	if (read_return == -1)
+		return (1);
+	if (read_return == MAX_FILE_SIZE)
+		return (7);
+	game->map = fill_map(buffer, map);
+	error = map_check(game->map);
+	return (error);
 }
 
 static int	init_game(char *map)
@@ -75,7 +98,7 @@ static int	init_game(char *map)
 	error = get_map(&game, map);
 	if (error)
 		return (error);
-	if (mlx(&game))
+	if (!mlx(&game))
 		return (6);
 	game.moves = 0;
 	game.collect = 0;

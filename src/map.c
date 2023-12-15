@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 21:58:14 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 00:35:41 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 01:38:18 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_map(t_game *game)
 	}
 }
 
-static char	**fill_map(char *buffer, char **map)
+char	**fill_map(char *buffer, char **map)
 {
 	int		i;
 	int		j;
@@ -73,25 +73,28 @@ static char	**fill_map(char *buffer, char **map)
 	return (map);
 }
 
-int	get_map(t_game *game, char *file)
+void	print_map(char **map)
 {
-	ssize_t	fd;
-	char	*buffer;
-	char	**map;
-	int		error;
-	ssize_t	read_return;
+	int	i;
+	int	j;
 
-	fd = open(file, O_RDONLY);
-	buffer = (char *)ft_calloc(sizeof(char), MAX_FILE_SIZE);
-	map = (char **)ft_calloc(sizeof(char *), MAX_Y + 1);
-	if (fd == -1 || !buffer || !map)
-		return (1);
-	read_return = read(fd, buffer, MAX_FILE_SIZE);
-	if (read_return == -1)
-		return (1);
-	if (read_return == MAX_FILE_SIZE)
-		return (7);
-	game->map = fill_map(buffer, map);
-	error = map_check(game->map);
-	return (error);
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+			write(1, &map[i][j], 1);
+		write(1, "\n", 1);
+	}
+	write(1, "\n", 1);
+}
+
+void	free_map(char **map)
+{
+	int	i;
+
+	i = -1;
+	while (map[++i])
+		free(map[i]);
+	free(map);
 }

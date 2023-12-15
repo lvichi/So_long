@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:34:15 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 00:27:17 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/15 01:37:20 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define SO_LONG_H
 
 # include <fcntl.h>
-# include "../libft/libft.h"
+# include <stdlib.h>
+# include <unistd.h>
 # include "../minilibx-linux/mlx.h"
 
 # define MAX_Y 20
@@ -37,6 +38,7 @@
 # define MAX_IMG 5
 # define IMG_WIDTH 50
 # define IMG_HEIGHT 50
+# define WINDOW_NAME "./so_long"
 
 typedef struct s_game
 {
@@ -49,11 +51,12 @@ typedef struct s_game
 	int		collect;
 }	t_game;
 
-int		get_map(t_game *game, char *file);
+char	**fill_map(char *buffer, char **map);
 int		map_check(char **map);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	ft_putnbr(int n);
 int		check_path(char **map);
 int		array_len(void *array);
-void	map_size(char **map, int *map_x, int *map_y);
 void	free_images(t_game *game);
 void	free_map(char **map);
 void	print_map(char **map);
