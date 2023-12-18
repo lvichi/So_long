@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 19:49:21 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/17 23:56:25 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/18 17:29:32 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	frame_loop(t_game *game)
 {
 	usleep(100000);
-	if (game->frame < 1)
+	if (game->frame < 2)
 		game->frame++;
 	else
 		game->frame = 0;

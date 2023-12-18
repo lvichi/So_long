@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/10 22:05:20 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/18 17:44:56 by lvichi           ###   ########.fr       */
+/*   Created: 2023/10/11 18:13:50 by lvichi            #+#    #+#             */
+/*   Updated: 2023/10/12 22:56:36 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "libft.h"
 
-void	ft_putnbr(int n)
+void	ft_putnbr_fd(int n, int fd)
 {
 	long	nbr;
 	char	c;
@@ -20,50 +20,22 @@ void	ft_putnbr(int n)
 	nbr = n;
 	if (nbr < 0)
 	{
-		write(1, "-", 1);
+		write(fd, "-", 1);
 		nbr = -nbr;
 	}
 	while (nbr > 9)
 	{
-		ft_putnbr(nbr / 10);
+		ft_putnbr_fd(nbr / 10, fd);
 		nbr = nbr % 10;
 	}
 	c = nbr + '0';
-	write(1, &c, 1);
+	write(fd, &c, 1);
 }
 
-int	array_len(char **array)
+/*int	main(void)
 {
-	int	i;
+	int	n = -2147483648;
+	int	fd = 1;
 
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
-}
-
-int	str_len(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	check_extension(char *file, char *ext)
-{
-	char	ext_check[5];
-	int		i;
-
-	while (*file)
-		file++;
-	i = 5;
-	while (--i >= 0)
-		ext_check[i] = *file--;
-	while (ext_check[++i])
-		if (ext_check[i] != ext[i])
-			return (0);
-	return (1);
-}
+	ft_putnbr_fd(n, fd);
+}*/

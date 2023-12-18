@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 21:58:14 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/17 22:59:53 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/18 19:43:07 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	draw_map(t_game *game)
 		while (++x < str_len(map[y]))
 			draw_image(game, x, y);
 	}
+	/////////
+	//mlx_string_put(game->c_id, game->w_id, 20, 20, int color, char *string );
 }
 
 char	**fill_map(char *buffer, char **map)

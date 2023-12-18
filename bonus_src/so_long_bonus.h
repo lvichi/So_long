@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:34:15 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/17 23:53:43 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/18 17:44:20 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "../minilibx-linux/mlx.h"
-#include <stdio.h> //delete
+# include "../libft/libft.h"
 
 # define MAX_Y 20
 # define MAX_X 38
