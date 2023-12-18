@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 21:58:14 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 01:38:18 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/17 17:25:19 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	draw_map(t_game *game)
 	while (++y < array_len(map))
 	{
 		x = -1;
-		while (++x < array_len(map[y]))
+		while (++x < str_len(map[y]))
 			draw_image(game, x, y);
 	}
 }

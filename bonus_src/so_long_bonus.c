@@ -6,39 +6,11 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/17 15:33:45 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/17 23:56:38 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
-
-static int	get_images(t_game *game)
-{
-	int		i;
-	int		w;
-	int		h;
-
-	w = IMG_WIDTH;
-	h = IMG_HEIGHT;
-	game->imgs = (void **)ft_calloc(sizeof(void *), MAX_IMG + 1);
-	if (!game->imgs)
-		return (0);
-	game->imgs[0] = mlx_xpm_file_to_image(game->c_id, WALL_IMG, &w, &h);
-	game->imgs[1] = mlx_xpm_file_to_image(game->c_id, BACKGROUND_IMG, &w, &h);
-	game->imgs[2] = mlx_xpm_file_to_image(game->c_id, PLAYER_IMG, &w, &h);
-	game->imgs[3] = mlx_xpm_file_to_image(game->c_id, COLLECT_IMG, &w, &h);
-	game->imgs[4] = mlx_xpm_file_to_image(game->c_id, EXIT_IMG, &w, &h);
-	i = -1;
-	while (++i < MAX_IMG)
-	{
-		if (!game->imgs[i])
-		{
-			free_images(game);
-			return (0);
-		}
-	}
-	return (1);
-}
 
 static int	mlx(t_game *game)
 {
@@ -55,7 +27,7 @@ static int	mlx(t_game *game)
 		free_map(game->map);
 		return (0);
 	}
-	game->w_id = mlx_new_window(game->c_id, array_len(game->map[0]) * IMG_WIDTH,
+	game->w_id = mlx_new_window(game->c_id, str_len(game->map[0]) * IMG_WIDTH,
 			array_len(game->map) * IMG_HEIGHT, WINDOW_NAME);
 	if (!game->w_id)
 	{
@@ -104,10 +76,13 @@ static int	init_game(char *map)
 		return (6);
 	game.moves = 0;
 	game.collect = 0;
+	game.frame = 0;
 	player_pos(&game);
 	draw_map(&game);
-	mlx_hook(game.w_id, 17, 0, end_game, &game);
-	mlx_key_hook(game.w_id, key_event, &game);
+	mlx_hook(game.w_id, 17, (1L << 17), end_game, &game);
+	mlx_hook(game.w_id, 02, (1L << 0), key_event, &game);
+	mlx_loop_hook(game.c_id, frame_loop, &game);
+	mlx_do_key_autorepeaton(game.c_id);
 	mlx_loop(game.c_id);
 	return (0);
 }

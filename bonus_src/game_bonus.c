@@ -6,30 +6,11 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:13:25 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/17 15:34:13 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/17 23:52:38 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
-
-int	end_game(t_game *game)
-{
-	int	i;
-
-	mlx_destroy_window(game->c_id, game->w_id);
-	i = -1;
-	while (++i < 5)
-		mlx_destroy_image(game->c_id, game->imgs[i]);
-	free(game->imgs);
-	i = -1;
-	while (((char **)game->map)[++i])
-		free(((char **)game->map)[i]);
-	free (game->map);
-	mlx_destroy_display(game->c_id);
-	free(game->c_id);
-	exit(0);
-	return (0);
-}
 
 static void	player_move(t_game *game, int new_y, int new_x)
 {
@@ -43,11 +24,14 @@ static void	player_move(t_game *game, int new_y, int new_x)
 		game->p_yx[1] = new_x;
 		game->moves += 1;
 		ft_putnbr(game->moves);
-		write(1, "\n", 1);
+		write(1, "\r", 1);
 		draw_map(game);
 	}
 	else if (game->map[new_y][new_x] == 'E' && game->collect == 0)
+	{
+		write(1, "\n", 1);
 		end_game(game);
+	}
 }
 
 int	key_event(int key, t_game *game)
@@ -85,4 +69,35 @@ void	player_pos(t_game *game)
 				game->collect += 1;
 		}
 	}
+}
+
+void	free_images(t_game *game)
+{
+	int	i;
+	int j;
+
+	i = -1;
+	while (++i < FRAMES)
+	{
+		if (game->imgs[i])
+		{
+			j = -1;
+			while (++j < MAX_IMG)
+				if (game->imgs[i][j])
+					mlx_destroy_image(game->c_id, game->imgs[i][j]);
+			free(game->imgs[i]);
+		}
+	}
+	free(game->imgs);
+}
+
+int	end_game(t_game *game)
+{
+	mlx_destroy_window(game->c_id, game->w_id);
+	free_images(game);
+	free_map(game->map);
+	mlx_destroy_display(game->c_id);
+	free(game->c_id);
+	exit(0);
+	return (0);
 }

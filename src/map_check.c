@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 20:38:22 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/15 01:13:31 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/17 17:25:20 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static int	check_retangle(char **map)
 {
 	int	y;
 
-	if (array_len(map) == array_len(map[0]))
+	if (array_len(map) == str_len(map[0]))
 		return (0);
 	y = -1;
 	while (map[++y])
-		if (array_len(map[y]) != array_len(map[0]))
+		if (str_len(map[y]) != str_len(map[0]))
 			return (0);
 	return (1);
 }
@@ -68,7 +68,7 @@ static int	check_wall(char **map)
 			if (y == 0 || y == array_len(map) - 1)
 				if (map[y][x] != '1')
 					return (0);
-			if (x == 0 || x == array_len(map[y]) - 1)
+			if (x == 0 || x == str_len(map[y]) - 1)
 				if (map[y][x] != '1')
 					return (0);
 		}

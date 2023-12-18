@@ -6,7 +6,7 @@
 #    By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/05 21:17:31 by lvichi            #+#    #+#              #
-#    Updated: 2023/12/17 15:53:52 by lvichi           ###   ########.fr        #
+#    Updated: 2023/12/17 16:08:18 by lvichi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ BONUS_NAME = so_long_bonus
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-RM = rm -fr
+MINILIBX = -L minilibx-linux -lmlx -lXext -lX11
 FILES = src/*.c
 OBJS = obj/*.o
-MINILIBX = -L minilibx-linux -lmlx -lXext -lX11
 BONUS_FILES = bonus_src/*_bonus.c
 BONUS_OBJS = bonus_obj/*_bonus.o
+RM = rm -fr
 
 all: $(NAME)
 
@@ -53,3 +53,5 @@ fclean:
 	@make clean -C minilibx-linux -s
 
 re: fclean all
+
+bonus_re : fclean bonus

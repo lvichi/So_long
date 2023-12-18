@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:17:22 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/17 15:33:53 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/17 22:30:00 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	**duplicate_map(char **map)
 	y = -1;
 	while (map[++y])
 	{
-		new_map[y] = (char *)ft_calloc(sizeof(char), array_len(map[y]) + 1);
+		new_map[y] = (char *)ft_calloc(sizeof(char), str_len(map[y]) + 1);
 		if (!new_map[y])
 		{
 			while (--y >= 0)
