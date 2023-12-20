@@ -6,19 +6,28 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 19:49:21 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/18 17:29:32 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/19 19:58:36 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+#include <stdio.h>
 
 int	frame_loop(t_game *game)
 {
-	usleep(100000);
-	if (game->frame < 2)
+	static int	last_frame;
+	
+	usleep(17500000);
+	if (game->frame == 0)
 		game->frame++;
-	else
-		game->frame = 0;
+	else if (game->frame == 1 && last_frame == 0)
+		game->frame++;
+	else if (game->frame == 1 && last_frame == 2)
+		game->frame--;
+	else if (game->frame == 2)
+		game->frame--;
+	if (game->frame != 1)
+		last_frame = game->frame;
 	draw_map(game);
 	return (0);
 }
