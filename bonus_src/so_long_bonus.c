@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/18 16:50:53 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/20 18:35:19 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static int	init_game(char *map)
 	mlx_hook(game.w_id, 02, (1L << 0), key_event, &game);
 	mlx_loop_hook(game.c_id, frame_loop, &game);
 	mlx_do_key_autorepeaton(game.c_id);
+	//mlx_set_font(game.c_id, game.w_id, "-*-*-*-*-*-*-20-*-*-*-*-*-*-*-");
 	mlx_loop(game.c_id);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 21:58:14 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/18 19:43:07 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/20 18:34:57 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	draw_image(t_game *game, int x, int y)
 			game->imgs[game->frame][0], x * IMG_WIDTH, y * IMG_HEIGHT);
 	if (game->map[y][x] == '0')
 		mlx_put_image_to_window(game->c_id, game->w_id,
-			game->imgs[game->frame][1],	x * IMG_WIDTH, y * IMG_HEIGHT);
+			game->imgs[game->frame][1], x * IMG_WIDTH, y * IMG_HEIGHT);
 	else if (game->map[y][x] == 'P')
 		mlx_put_image_to_window(game->c_id, game->w_id,
 			game->imgs[game->frame][2], x * IMG_WIDTH, y * IMG_HEIGHT);
@@ -36,6 +36,7 @@ void	draw_map(t_game *game)
 	int		x;
 	int		y;
 	char	**map;
+	char	*move;
 
 	map = (char **)game->map;
 	y = -1;
@@ -45,8 +46,9 @@ void	draw_map(t_game *game)
 		while (++x < str_len(map[y]))
 			draw_image(game, x, y);
 	}
-	/////////
-	//mlx_string_put(game->c_id, game->w_id, 20, 20, int color, char *string );
+	move = ft_itoa(game->moves);
+	mlx_string_put(game->c_id, game->w_id, 20, 20, 0x000080, move);
+	free(move);
 }
 
 char	**fill_map(char *buffer, char **map)
