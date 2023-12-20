@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:17:22 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/17 17:25:21 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/20 20:37:32 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	check_fill(char **map)
 	{
 		x = -1;
 		while (map[y][++x])
-			if (map[y][x] == 'P' || map[y][x] == 'C' || map[y][x] == 'E')
+			if (map[y][x] == 'P' || map[y][x] == 'C')
 				return (0);
 	}
 	return (1);
@@ -30,27 +30,27 @@ static int	check_fill(char **map)
 
 static void	flood_fill(char **map, int y, int x)
 {
-	map[y][x] = '-';
-	if (map[y - 1][x] != '1' && map[y - 1][x] != '-')
-		flood_fill(map, y - 1, x);
-	if (map[y + 1][x] != '1' && map[y + 1][x] != '-')
-		flood_fill(map, y + 1, x);
-	if (map[y][x - 1] != '1' && map[y][x - 1] != '-')
-		flood_fill(map, y, x - 1);
-	if (map[y][x + 1] != '1' && map[y][x + 1] != '-')
-		flood_fill(map, y, x + 1);
-}
-
-static void	start_pos(char **map, int *y, int *x)
-{
-	*y = -1;
-	while (map[++(*y)])
+	if (y == -1 && x == -1)
 	{
-		*x = -1;
-		while (map[*y][++(*x)])
-			if (map[*y][*x] == 'P')
-				return ;
+		while (map[++y])
+		{
+			x = -1;
+			while (map[y][++x])
+				if (map[y][x] == 'P')
+					break ;
+			if (map[y][x] && map[y][x] == 'P')
+				break ;
+		}
 	}
+	map[y][x] = '-';
+	if (map[y - 1][x] != '1' && map[y - 1][x] != '-' && map[y - 1][x] != 'E')
+		flood_fill(map, y - 1, x);
+	if (map[y + 1][x] != '1' && map[y + 1][x] != '-' && map[y + 1][x] != 'E')
+		flood_fill(map, y + 1, x);
+	if (map[y][x - 1] != '1' && map[y][x - 1] != '-' && map[y][x - 1] != 'E')
+		flood_fill(map, y, x - 1);
+	if (map[y][x + 1] != '1' && map[y][x + 1] != '-' && map[y][x + 1] != 'E')
+		flood_fill(map, y, x + 1);
 }
 
 static char	**duplicate_map(char **map)
@@ -80,18 +80,39 @@ static char	**duplicate_map(char **map)
 	return (new_map);
 }
 
+static int	check_exit(char **map)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+			if (map[y][x] == 'E')
+				break ;
+		if (map[y][x] && map[y][x] == 'E')
+			break ;
+	}
+	if (map[y + 1][x] == '-')
+		return (1);
+	if (map[y - 1][x] == '-')
+		return (1);
+	if (map[y][x + 1] == '-')
+		return (1);
+	if (map[y][x - 1] == '-')
+		return (1);
+	return (0);
+}
+
 int	check_path(char **map)
 {
 	char	**test_map;
-	int		y;
-	int		x;
 
 	test_map = duplicate_map(map);
-	y = 0;
-	x = 0;
-	start_pos(test_map, &y, &x);
-	flood_fill(test_map, y, x);
-	if (!check_fill(test_map))
+	flood_fill(test_map, -1, -1);
+	if (!check_fill(test_map) || !check_exit(test_map))
 	{
 		free_map(test_map);
 		return (0);

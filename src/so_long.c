@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/18 17:07:37 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/20 20:46:59 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,11 @@ static int	get_map(t_game *game, char *file)
 	buffer = (char *)ft_calloc(sizeof(char), MAX_FILE_SIZE);
 	map = (char **)ft_calloc(sizeof(char *), MAX_Y + 1);
 	if (fd == -1 || !buffer || !map)
+	{
+		free(buffer);
+		free(map);
 		return (1);
+	}
 	read_return = read(fd, buffer, MAX_FILE_SIZE);
 	if (read_return == -1)
 		return (1);
