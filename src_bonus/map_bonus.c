@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 21:58:14 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/21 15:55:56 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 18:56:41 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ static void	draw_image(t_game *game, int x, int y)
 {
 	if (game->map[y][x] == '1')
 		mlx_put_image_to_window(game->c_id, game->w_id,
-			game->imgs[game->frame][0], x * IMG_WIDTH, y * IMG_HEIGHT);
+			game->imgs[game->frame][0], x * IMG_WIDTH, y * IMG_HEIGHT + BANNER);
 	if (game->map[y][x] == '0')
 		mlx_put_image_to_window(game->c_id, game->w_id,
-			game->imgs[game->frame][1], x * IMG_WIDTH, y * IMG_HEIGHT);
+			game->imgs[game->frame][1], x * IMG_WIDTH, y * IMG_HEIGHT + BANNER);
 	else if (game->map[y][x] == 'P')
 		mlx_put_image_to_window(game->c_id, game->w_id,
-			game->imgs[game->frame][2], x * IMG_WIDTH, y * IMG_HEIGHT);
+			game->imgs[game->frame][2], x * IMG_WIDTH, y * IMG_HEIGHT + BANNER);
 	else if (game->map[y][x] == 'C')
 		mlx_put_image_to_window(game->c_id, game->w_id,
-			game->imgs[game->frame][3], x * IMG_WIDTH, y * IMG_HEIGHT);
+			game->imgs[game->frame][3], x * IMG_WIDTH, y * IMG_HEIGHT + BANNER);
 	else if (game->map[y][x] == 'E')
 		mlx_put_image_to_window(game->c_id, game->w_id,
-			game->imgs[game->frame][4], x * IMG_WIDTH, y * IMG_HEIGHT);
+			game->imgs[game->frame][4], x * IMG_WIDTH, y * IMG_HEIGHT + BANNER);
 	else if (game->map[y][x] == 'K')
 		mlx_put_image_to_window(game->c_id, game->w_id,
-			game->imgs[game->frame][5], x * IMG_WIDTH, y * IMG_HEIGHT);	
+			game->imgs[game->frame][5], x * IMG_WIDTH, y * IMG_HEIGHT + BANNER);
 }
 
 void	draw_map(t_game *game)
@@ -39,7 +39,6 @@ void	draw_map(t_game *game)
 	int		x;
 	int		y;
 	char	**map;
-	char	*move;
 
 	map = (char **)game->map;
 	y = -1;
@@ -49,9 +48,7 @@ void	draw_map(t_game *game)
 		while (++x < str_len(map[y]))
 			draw_image(game, x, y);
 	}
-	move = ft_itoa(game->moves);
-	mlx_string_put(game->c_id, game->w_id, 20, 20, 0x000080, move);
-	free(move);
+	draw_str(game);
 }
 
 char	**fill_map(char *buffer, char **map)

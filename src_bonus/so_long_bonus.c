@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/21 16:17:00 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 19:12:52 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	mlx(t_game *game)
 		return (0);
 	}
 	game->w_id = mlx_new_window(game->c_id, str_len(game->map[0]) * IMG_WIDTH,
-			array_len(game->map) * IMG_HEIGHT, WINDOW_NAME);
+			(array_len(game->map) * IMG_HEIGHT) + BANNER , WINDOW_NAME);
 	if (!game->w_id)
 	{
 		mlx_destroy_display(game->c_id);
@@ -87,8 +87,7 @@ static int	init_game(char *map)
 	mlx_hook(game.w_id, 17, (1L << 17), end_game, &game);
 	mlx_hook(game.w_id, 02, (1L << 0), key_event, &game);
 	mlx_loop_hook(game.c_id, frame_loop, &game);
-	mlx_do_key_autorepeaton(game.c_id);
-	//mlx_set_font(game.c_id, game.w_id, "-*-*-*-*-*-*-20-*-*-*-*-*-*-*-");
+	mlx_do_key_autorepeaton(game.c_id); 
 	mlx_loop(game.c_id);
 	return (0);
 }

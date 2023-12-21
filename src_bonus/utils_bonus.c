@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:05:20 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/20 17:05:40 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 18:51:11 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,23 @@ int	check_extension(char *file, char *ext)
 		if (ext_check[i] != ext[i])
 			return (0);
 	return (1);
+}
+
+void	draw_str(t_game *game)
+{
+	char	*move;
+	int		y;
+	int		x;
+
+	y = -1;
+	while (++y < 30)
+	{
+		x = -1;
+		while (++x < str_len(game->map[0]) * IMG_WIDTH)
+			mlx_pixel_put(game->c_id, game->w_id, x, y, 0xFFFFFF);
+	}
+	mlx_string_put(game->c_id, game->w_id, 15, 21, 0x006600, "MOVEMENT: ");
+	move = ft_itoa(game->moves);
+	mlx_string_put(game->c_id, game->w_id, 100, 21, 0x006600, move);
+	free(move);
 }

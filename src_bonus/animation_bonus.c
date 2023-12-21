@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 19:49:21 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/21 16:17:24 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 18:17:58 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	frame_loop(t_game *game)
 	static int	last_frame;
 	static int	time;
 
-	if (!(time % 2500))
+	if (!(time % 25000))
 	{
 		if (game->frame == 0)
 			game->frame++;
@@ -32,7 +32,8 @@ int	frame_loop(t_game *game)
 		draw_map(game);
 	}
 	time++;
-	killer_loop(game);
+	if (game->k_yx[0] != 0 && game->k_yx[1] != 0)
+		killer_loop(game);
 	return (0);
 }
 

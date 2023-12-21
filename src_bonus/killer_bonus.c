@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:05:58 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/21 17:47:19 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 18:16:49 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	killer_loop(t_game *game)
 {
 	static int	time;
 
-	if (!(time % 10000))
+	if (!(time % 100000))
 	{
 		killer_move(game);
 	}
@@ -118,7 +118,10 @@ void	killer_pos(t_game *game)
 			{
 				game->k_yx[0] = i;
 				game->k_yx[1] = j;
+				return ;
 			}
 		}
 	}
+	game->k_yx[0] = 0;
+	game->k_yx[1] = 0;
 }

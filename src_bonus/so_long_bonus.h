@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:34:15 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/21 16:14:19 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 19:11:27 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # define IMG_HEIGHT 50
 # define WINDOW_NAME "./so_long"
 # define FILE_EXTENSION ".ber"
+# define BANNER 30
 
 typedef struct s_game
 {
@@ -88,5 +89,6 @@ int		frame_loop(t_game *game);
 int		killer_loop(t_game *game);
 int		end_game(t_game *game);
 int		get_images(t_game *game);
+void	draw_str(t_game *game);
 
 #endif
