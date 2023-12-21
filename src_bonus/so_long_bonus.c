@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:33:46 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/20 20:48:55 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 16:17:00 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static int	init_game(char *map)
 	game.collect = 0;
 	game.frame = 0;
 	player_pos(&game);
+	killer_pos(&game);
 	draw_map(&game);
 	mlx_hook(game.w_id, 17, (1L << 17), end_game, &game);
 	mlx_hook(game.w_id, 02, (1L << 0), key_event, &game);

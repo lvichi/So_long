@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 21:58:14 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/20 18:34:57 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 15:55:56 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ static void	draw_image(t_game *game, int x, int y)
 	else if (game->map[y][x] == 'E')
 		mlx_put_image_to_window(game->c_id, game->w_id,
 			game->imgs[game->frame][4], x * IMG_WIDTH, y * IMG_HEIGHT);
+	else if (game->map[y][x] == 'K')
+		mlx_put_image_to_window(game->c_id, game->w_id,
+			game->imgs[game->frame][5], x * IMG_WIDTH, y * IMG_HEIGHT);	
 }
 
 void	draw_map(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:13:25 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/20 19:34:06 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 17:10:51 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@ static void	player_move(t_game *game, int new_y, int new_x)
 		game->p_yx[0] = new_y;
 		game->p_yx[1] = new_x;
 		game->moves += 1;
+		ft_putnbr(game->moves);
+		write(1, "\r", 1);
 		draw_map(game);
 	}
 	else if (game->map[new_y][new_x] == 'E' && game->collect == 0)
+		end_game(game);
+	else if (game->map[new_y][new_x] == 'K')
 		end_game(game);
 }
 
@@ -88,6 +92,7 @@ void	free_images(t_game *game)
 
 int	end_game(t_game *game)
 {
+	write(1, "\n", 1);
 	mlx_destroy_window(game->c_id, game->w_id);
 	free_images(game);
 	free_map(game->map);

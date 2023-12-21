@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 15:34:15 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/20 19:30:57 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 16:14:19 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,20 @@
 # define PLAYER_0 "images/0/player.xpm"
 # define COLLECT_0 "images/0/collect.xpm"
 # define EXIT_0 "images/0/exit.xpm"
+# define KILLER_0 "images/0/killer.xpm"
 # define WALL_1 "images/1/wall.xpm"
 # define BACK_1 "images/1/background.xpm"
 # define PLAYER_1 "images/1/player.xpm"
 # define COLLECT_1 "images/1/collect.xpm"
 # define EXIT_1 "images/1/exit.xpm"
+# define KILLER_1 "images/1/killer.xpm"
 # define WALL_2 "images/2/wall.xpm"
 # define BACK_2 "images/2/background.xpm"
 # define PLAYER_2 "images/2/player.xpm"
 # define COLLECT_2 "images/2/collect.xpm"
 # define EXIT_2 "images/2/exit.xpm"
-# define MAX_IMG 5
+# define KILLER_2 "images/2/killer.xpm"
+# define MAX_IMG 6
 # define FRAMES 3
 # define IMG_WIDTH 50
 # define IMG_HEIGHT 50
@@ -60,6 +63,7 @@ typedef struct s_game
 	void	***imgs;
 	char	**map;
 	int		p_yx[2];
+	int		k_yx[2];
 	int		moves;
 	int		collect;
 	int		frame;
@@ -77,9 +81,11 @@ void	free_images(t_game *game);
 void	free_map(char **map);
 void	print_map(char **map);
 void	player_pos(t_game *game);
+void	killer_pos(t_game *game);
 void	draw_map(t_game *game);
 int		key_event(int key, t_game *game);
 int		frame_loop(t_game *game);
+int		killer_loop(t_game *game);
 int		end_game(t_game *game);
 int		get_images(t_game *game);
 

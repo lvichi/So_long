@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 20:38:22 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/17 22:29:55 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 16:02:08 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	check_content(char **map)
 				content_p_c_e[1] = 1;
 			else if (map[y][x] == 'E')
 				content_p_c_e[2] += 1;
-			else if (map[y][x] != '0' && map[y][x] != '1')
+			else if (map[y][x] != '0' && map[y][x] != '1' && map[y][x] != 'K')
 				return (0);
 		}
 	}

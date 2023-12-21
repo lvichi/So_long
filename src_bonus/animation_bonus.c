@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 19:49:21 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/20 19:30:12 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/21 16:17:24 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	frame_loop(t_game *game)
 		draw_map(game);
 	}
 	time++;
+	killer_loop(game);
 	return (0);
 }
 
@@ -51,6 +52,7 @@ static int	get_frame_0(t_game *game)
 	game->imgs[0][2] = mlx_xpm_file_to_image(game->c_id, PLAYER_0, &w, &h);
 	game->imgs[0][3] = mlx_xpm_file_to_image(game->c_id, COLLECT_0, &w, &h);
 	game->imgs[0][4] = mlx_xpm_file_to_image(game->c_id, EXIT_0, &w, &h);
+	game->imgs[0][5] = mlx_xpm_file_to_image(game->c_id, KILLER_0, &w, &h);
 	i = -1;
 	while (++i < MAX_IMG)
 		if (!game->imgs[0][i])
@@ -74,6 +76,7 @@ static int	get_frame_1(t_game *game)
 	game->imgs[1][2] = mlx_xpm_file_to_image(game->c_id, PLAYER_1, &w, &h);
 	game->imgs[1][3] = mlx_xpm_file_to_image(game->c_id, COLLECT_1, &w, &h);
 	game->imgs[1][4] = mlx_xpm_file_to_image(game->c_id, EXIT_1, &w, &h);
+	game->imgs[1][5] = mlx_xpm_file_to_image(game->c_id, KILLER_1, &w, &h);
 	i = -1;
 	while (++i < MAX_IMG)
 		if (!game->imgs[1][i])
@@ -97,6 +100,7 @@ static int	get_frame_2(t_game *game)
 	game->imgs[2][2] = mlx_xpm_file_to_image(game->c_id, PLAYER_2, &w, &h);
 	game->imgs[2][3] = mlx_xpm_file_to_image(game->c_id, COLLECT_2, &w, &h);
 	game->imgs[2][4] = mlx_xpm_file_to_image(game->c_id, EXIT_2, &w, &h);
+	game->imgs[2][5] = mlx_xpm_file_to_image(game->c_id, KILLER_0, &w, &h);
 	i = -1;
 	while (++i < MAX_IMG)
 		if (!game->imgs[2][i])
