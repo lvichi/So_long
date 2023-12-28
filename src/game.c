@@ -6,7 +6,7 @@
 /*   By: lvichi <lvichi@student.42porto.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:13:25 by lvichi            #+#    #+#             */
-/*   Updated: 2023/12/17 21:20:01 by lvichi           ###   ########.fr       */
+/*   Updated: 2023/12/28 16:18:26 by lvichi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	player_move(t_game *game, int new_y, int new_x)
 	}
 	else if (game->map[new_y][new_x] == 'E' && game->collect == 0)
 	{
+		game->moves += 1;
+		ft_putnbr(game->moves);
 		write(1, "\n", 1);
 		end_game(game);
 	}
